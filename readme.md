@@ -1,9 +1,32 @@
-Scripts
-npm run start:dev
-Starts the application in development using nodemon and ts-node to do hot reloading.
+## Scripts
 
-npm run build
-Builds the app at build, cleaning the folder first.
+```bash
+$ npm install
+```
 
-npm run start
-Starts the app in production by first building the project with npm run build, and then executing the compiled JavaScript at build/index.js
+## Running the app
+
+```bash
+# Development: Starts the application in development using nodemon and ts-node to do hot reloading.
+$ npm run start:dev
+
+# Build: Builds the app at build, cleaning the folder first.
+$ npm run build
+
+# Production: Starts the app in production by first building the project with npm run build
+$ npm run start
+
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
