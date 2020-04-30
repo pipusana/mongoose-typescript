@@ -36,29 +36,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var account_1 = require("./repository/account");
-var db_1 = require("./adapter/db");
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var like, dislike, username, password, host, post, dbName, authName, connection, accountRepository, accountRepository1, accountRepository2;
-    return __generator(this, function (_a) {
-        like = 99;
-        dislike = 9999;
-        username = 'user';
-        password = 'password';
-        host = '127.0.0.1';
-        post = '27017';
-        dbName = 'social_network_account';
-        authName = 'admin';
-        connection = new db_1.DB(username, password, host, post, dbName, authName).connection();
-        accountRepository = new account_1.AccountRepository(connection);
-        accountRepository1 = account_1.AccountRepository.Models();
-        accountRepository2 = account_1.AccountRepository.Models();
-        if (accountRepository1 === accountRepository2) {
-            console.log('[accountRepository] Singleton works, both variables contain the same instance.');
+var account_schema_1 = require("../entities/account.schema");
+var AccountRepository = /** @class */ (function () {
+    function AccountRepository(accountConnection) {
+        this._collection = 'accounts';
+        this._models = accountConnection.model('Account', account_schema_1.AccountSchema, this._collection);
+        AccountRepository._connection = accountConnection;
+    }
+    AccountRepository.Models = function () {
+        if (!AccountRepository.instance) {
+            AccountRepository.instance = new AccountRepository(AccountRepository._connection);
         }
-        else {
-            console.log('[accountRepository] Singleton failed, variables contain different instances.');
-        }
-        return [2 /*return*/];
-    });
-}); })();
+        return AccountRepository.instance;
+    };
+    AccountRepository.prototype.saveEngagement = function (insertData) {
+        return __awaiter(this, void 0, void 0, function () {
+            var mongooseModel, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        mongooseModel = new this._models(insertData);
+                        return [4 /*yield*/, mongooseModel.save()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.id];
+                }
+            });
+        });
+    };
+    return AccountRepository;
+}());
+exports.AccountRepository = AccountRepository;

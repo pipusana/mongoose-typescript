@@ -1,24 +1,41 @@
 import { AccountRepository } from './repository/account';
 import { DB } from './adapter/db';
 
+const username: string ='user'
+const password: string ='password'
+const host: string ='127.0.0.1'
+const post: string ='27017'
+const dbName: string ='social_network_account'
+const authName: string ='admin'
+
+
+const connection = new DB(username, password, host, post, dbName, authName).connection()
+new AccountRepository(connection)
+
+
+async function run () {
+    const like: number = 1
+    const dislike: number = 1 
+    const accountRepository =  AccountRepository.Instance()
+    console.log('save', await accountRepository.saveEngagement({like, dislike}))
+}
+
+async function run2 () {
+    const like: number = 2
+    const dislike: number = 2
+    const accountRepository =  AccountRepository.Instance()
+    console.log('save', await accountRepository.saveEngagement({like, dislike}))
+}
+
+async function run3 () {
+    const like: number = 3
+    const dislike: number = 3
+    const accountRepository =  AccountRepository.Instance()
+    console.log('save', await accountRepository.saveEngagement({like, dislike}))
+}
 
 (async () => {
-    const like = 99
-    const dislike = 9999
-    
-    const s1 = DB.Models()
-    const s2 = DB.Models()
-
-    console.log('s1', s1)
-    console.log('s2', s2)
-
-    if (s1 === s2) {
-        console.log('Singleton works, both variables contain the same instance.');
-    } else {
-        console.log('Singleton failed, variables contain different instances.');
-    }
-
-    const accountRepository = new AccountRepository(s1)
-    console.log('save', await accountRepository.save(like, dislike))
-
+    await run()
+    await run2()
+    await run3()
 })()
