@@ -8,29 +8,26 @@ const post: string ='27017'
 const dbName: string ='social_network_account'
 const authName: string ='admin'
 
-
-const connection = new DB(username, password, host, post, dbName, authName).connection()
-new AccountRepository(connection)
-
+new DB(username, password, host, post, dbName, authName)
 
 async function run () {
     const like: number = 1
     const dislike: number = 1 
-    const accountRepository =  AccountRepository.Instance()
+    const accountRepository =  AccountRepository.getInstance()
     console.log('save', await accountRepository.saveEngagement({like, dislike}))
 }
 
 async function run2 () {
     const like: number = 2
     const dislike: number = 2
-    const accountRepository =  AccountRepository.Instance()
+    const accountRepository =  AccountRepository.getInstance()
     console.log('save', await accountRepository.saveEngagement({like, dislike}))
 }
 
 async function run3 () {
     const like: number = 3
     const dislike: number = 3
-    const accountRepository =  AccountRepository.Instance()
+    const accountRepository =  AccountRepository.getInstance()
     console.log('save', await accountRepository.saveEngagement({like, dislike}))
 }
 

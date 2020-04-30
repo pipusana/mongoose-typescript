@@ -17,10 +17,6 @@ export class DB {
         this._db.on('error', this.error);
     }
 
-    public connection() {
-        return this._db
-    }
-
     private connected() {
         console.log('Mongoose has connected');
     }
